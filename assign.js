@@ -44,14 +44,27 @@ class Rental {
         this.rentalStartDate=rentalStartDate;
         this.rentalEndDate=rentalEndDate
     }
-    calculateRentalDuration=function(){
-        console.log(this.rentalEndDate - this.rentalStartDate);
+    // calculateRentalDuration=function(){
+    //     console.log(this.rentalEndDate - this.rentalStartDate);
         
-    }
+    // }
+
+    calculateRentalDuration() {
+        const oneDay = 24 * 60 * 60 * 1000; 
+        const startDate = new Date(this.rentalStartDate);
+        const endDate = new Date(this.rentalEndDate);
+        const diffDays = Math.round(Math.abs((startDate - endDate) / oneDay));
+    
+        return diffDays;
+      }
+
+
 }
-let rental1= new Rental("Benz", "Marc Mills",12,20)
+const rentalStartDate = new Date("2023-03-18");
+const rentalEndDate = new Date("2023-04-02");
+let rental1= new Rental("Benz", "Marc Mills",rentalStartDate,rentalEndDate)
 console.log(rental1);
- rental1.calculateRentalDuration()
+console.log("rental days", rental1.calculateRentalDuration());
 
 // 3. Create an instance of the Car class or function constructor for a car in the
 // inventory. Then, create an instance of the Rental class or function constructor for
@@ -70,9 +83,9 @@ class Benz extends Rental{
         super(car, renterName, rentalStartDate, rentalEndDate)
     }
 }
-let ben= new Benz("benz","Mike",25,28)
+let ben= new Benz("benz","Mike",rentalStartDate,rentalEndDate)
 console.log(ben);
-ben.calculateRentalDuration()
+console.log("rental days", ben.calculateRentalDuration());
 
 
 // Question 2
@@ -92,6 +105,7 @@ class Question {
       this.text = text;
       this.options = options;
       this.correctAnswer = correctAnswer;
+      
     }
   
     checkAnswer(answer) {
@@ -122,6 +136,7 @@ class Quiz{
         this.questions=questions
         this.currentQuestionIndex=currentQuestionIndex
         this.score=score 
+        
     }
     addQuestion(qnobject){
        this.questions.push(qnobject);
@@ -132,8 +147,8 @@ class Quiz{
         
     }
     submitAnswer(userAnswer){
-        if(userAnswer===Question.checkAnswer){
-          this.score++;
+        if(userAnswer===this.checkAnswer){
+        console.log( this.score++)
         }
     }
 }
@@ -142,6 +157,6 @@ let quiz1= new Quiz([{qn1:"what is the biggest animal on earth"},{qn2:"what goes
 1,10)
 console.log(quiz1);
 quiz1.addQuestion({qn3:"longest building in kenya"})
-quiz1.nextQuestion();
+console.log( quiz1.nextQuestion());
 quiz1.submitAnswer("karma")
 console.log(quiz1);
